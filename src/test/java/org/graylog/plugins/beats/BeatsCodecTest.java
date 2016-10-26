@@ -32,6 +32,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import java.util.Collection;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -117,5 +118,26 @@ public class BeatsCodecTest {
         assertThat(message.getSource()).isEqualTo("unknown");
         assertThat(message.getTimestamp()).isEqualTo(new DateTime(2016, 4, 1, 0, 0, DateTimeZone.UTC));
         assertThat(message.getField("facility")).isEqualTo("genericbeat");
+    }
+
+    @Test
+    public void decodeMessagesListHandlesFilebeatMessages() throws Exception {
+        final byte[] json = Resources.toByteArray(Resources.getResource("filebeat_nested.json"));
+        final RawMessage rawMessage = new RawMessage(json);
+        final Collection<Message> messages = codec.decodeMessages(rawMessage);
+        for(Message message : messages) {
+            assertThat(message).isNotNull();
+            //assertThat(message.getMessage()).isEqualTo("TEST");
+            assertThat(message.getSource()).isEqualTo("example.local");
+            assertThat(message.getTimestamp()).isEqualTo(new DateTime(2016, 4, 1, 0, 0, DateTimeZone.UTC));
+            assertThat(message.getField("facility")).isEqualTo("filebeat");
+            assertThat(message.getField("file")).isEqualTo("/tmp/test.log");
+            assertThat(message.getField("type")).isEqualTo("log");
+            assertThat(message.getField("count")).isEqualTo(1);
+            assertThat(message.getField("offset")).isEqualTo(0);
+            @SuppressWarnings("unchecked")
+            final List<String> tags = (List<String>) message.getField("tags");
+            assertThat(tags).containsOnly("foobar", "test");
+        }
     }
 }

@@ -1,0 +1,24 @@
+{
+  "@metadata": {
+    "beat": "filebeat",
+    "type": "metric"
+  },
+  "@timestamp": "2016-04-01T00:00:00.000Z",
+  "beat": {
+    "hostname": "example.local",
+    "name": "example.local"
+  },
+  "fields": {
+    "splitFiled": "metric---detail_metric"
+  },
+  "message": "{ \"testkey\":\"testvalue\",\"testnum\":5,\"metric\": [{\"metric_name\": \"SQL_CONNECTION_NUMBER\",\"metric_value\": 2,\"metric_uom\": \"null\",\"metric_id\": \"6a9ac355-191a-11e4-8ae7-bb127a02d38d\"},{\"metric_name\": \"SQL_EXECUTE_STATEMENT_NUMBER\", \"metric_value\": 9,\"metric_uom\": null,\"metric_id\": \"a81e7bdb-54ac-d697-8055-1940ab8e174f\"}] }",
+  "count": 1,
+  "input_type": "log",
+  "offset": 0,
+  "source": "/tmp/test.log",
+  "tags": [
+    "foobar",
+    "test"
+  ],
+  "type": "log"
+}
