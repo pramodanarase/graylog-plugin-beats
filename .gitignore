@@ -8,6 +8,10 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 
+### Eclipse template
+.classpath
+.project
+.settings/
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
